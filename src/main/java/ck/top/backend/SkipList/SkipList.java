@@ -6,6 +6,29 @@ import java.util.Random;
 
 public class SkipList<K extends Comparable<K>, V> {
 
+    private volatile static SkipList<?, ?> instance;
+
+    private SkipList() {
+        // 初始化跳表头节点，其层级等于跳表的最大层级
+        this.header = new Node<>(null, null, MAX_LEVEL);
+        // 设置跳表当前层级为 0，节点计数为 0
+        this.nodeNum = 0;
+        this.skipListLevel = 0;
+    }
+
+    public static <K extends Comparable<K>, V> SkipList<K, V> getInstance() {
+        if (instance == null) {
+            synchronized (SkipList.class) {
+                if (instance == null) {
+                    instance = new SkipList<>();
+                }
+            }
+        }
+        @SuppressWarnings("unchecked")
+        SkipList<K, V> castInstance = (SkipList<K, V>) instance;
+        return castInstance;
+    }
+
     private static final int MAX_LEVEL = 32;    // 跳表的最大层数
 
     private final Node<K, V> header;      // 每一层都有头节点，不存实际数据
@@ -14,13 +37,6 @@ public class SkipList<K extends Comparable<K>, V> {
 
     private int skipListLevel;      // 跳表当前的层级
 
-    public SkipList() {
-        // 初始化跳表头节点，其层级等于跳表的最大层级
-        this.header = new Node<>(null, null, MAX_LEVEL);
-        // 设置跳表当前层级为 0，节点计数为 0
-        this.nodeNum = 0;
-        this.skipListLevel = 0;
-    }
 
     /**
      * 创建新的Node节点
@@ -190,11 +206,9 @@ public class SkipList<K extends Comparable<K>, V> {
                 this.skipListLevel--;
             }
 
-            System.out.println("成功删除key: " + key);
             this.nodeNum--;
             return true;
         }
-        System.out.println("key: " + key + "不存在");
         return false;
     }
 }
