@@ -91,10 +91,11 @@ public class SkipList<K extends Comparable<K>, V> {
         int randomLevel = generateRandomLevel();
         // 跳表中不存在这个key
         if (cur == null || cur.getKey().compareTo(key) != 0) {
+            // 生成节点的层数 大于 跳表当前的层数
             if (randomLevel > this.skipListLevel) {
-                for (int i = this.skipListLevel + 1; i >= 0; i--) {
-                    // 记录每一层，待插入key的前驱
-                    prevNodes.set(i, cur);
+                for (int i = this.skipListLevel + 1; i <= randomLevel; i++) {
+                    // 新建一层，开始为头节点
+                    prevNodes.set(i, header);
                 }
                 // 更新跳表的最高层数
                 this.skipListLevel = randomLevel;
@@ -104,7 +105,8 @@ public class SkipList<K extends Comparable<K>, V> {
 
             // 修改每一层里面链表节点的指向
             for (int i = 0; i <= randomLevel; i++) {
-                node.getNext().set(i, prevNodes.get(i));
+                // i层 当前节点的next指向 前驱节点的next
+                node.getNext().set(i, prevNodes.get(i).getNext().get(i));
                 prevNodes.get(i).getNext().set(i, node);
             }
             nodeNum++;
