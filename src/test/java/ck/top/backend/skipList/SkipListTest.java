@@ -1,4 +1,4 @@
-package ck.top.backend.SkipList;
+package ck.top.backend.skipList;
 
 import static org.junit.Assert.*;
 

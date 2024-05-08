@@ -64,7 +64,7 @@ public class SkipList<K extends Comparable<K>, V> {
      * @return 返回节点层级
      */
     private static int generateRandomLevel() {
-        int level = 1;
+        int level = 0;
         Random random = new Random();
         while (random.nextInt(2) == 1) {    // [0,1]随机选一个的概率为0.5
             level++;

@@ -1,4 +1,4 @@
-package ck.top.backend.SkipList;
+package ck.top.backend.skipList;
 
 import java.util.ArrayList;
 import java.util.Collections;
