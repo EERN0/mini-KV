@@ -228,12 +228,28 @@ public class SkipList<K extends Comparable<K>, V> {
             Node<K, V> cur = this.header.getNext().get(i);
             System.out.print("Level " + i + ": ");
             while (cur != null) {
-                System.out.print(cur.getKey() + ": " + cur.getValue() + ";");
+                System.out.print(cur.getKey() + ":" + cur.getValue() + "; ");
                 // 移动到i层的下一个节点
                 cur = cur.getNext().get(i);
             }
             // 打印完一层后，换行
             System.out.println();
         }
+    }
+
+    SkipListPersistence<K, V> persistence = new SkipListPersistence<>();
+
+    /**
+     * 跳表数据持久化
+     */
+    public void flush() {
+        persistence.flush(this);
+    }
+
+    /**
+     * 加载磁盘数据到跳表实例
+     */
+    public void load() {
+        persistence.load(this);
     }
 }
