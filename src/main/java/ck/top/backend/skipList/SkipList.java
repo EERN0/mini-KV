@@ -1,4 +1,4 @@
-package ck.top.backend.SkipList;
+package ck.top.backend.skipList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +37,13 @@ public class SkipList<K extends Comparable<K>, V> {
 
     private int skipListLevel;      // 跳表当前的层级
 
+    public Node<K, V> getHeader() {
+        return header;
+    }
+
+    public int getSkipListLevel() {
+        return skipListLevel;
+    }
 
     /**
      * 创建新的Node节点
@@ -210,5 +217,23 @@ public class SkipList<K extends Comparable<K>, V> {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 打印跳表的层次结构和key-value
+     */
+    public void show() {
+        // 从最上层开始，一层层遍历
+        for (int i = this.skipListLevel; i >= 0; i--) {
+            Node<K, V> cur = this.header.getNext().get(i);
+            System.out.print("Level " + i + ": ");
+            while (cur != null) {
+                System.out.print(cur.getKey() + ": " + cur.getValue() + ";");
+                // 移动到i层的下一个节点
+                cur = cur.getNext().get(i);
+            }
+            // 打印完一层后，换行
+            System.out.println();
+        }
     }
 }
