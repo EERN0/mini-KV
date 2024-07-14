@@ -1,6 +1,6 @@
-package ck.top.backend.server;
+package ck.top.server;
 
-import ck.top.backend.skipList.SkipList;
+import ck.top.skipList.SkipList;
 
 import java.io.*;
 import java.net.*;
@@ -106,9 +106,7 @@ public class Server {
                             skipList.load();
                             break;
                         default:
-                            out.println("********skiplist*********");
                             skipList.show();
-                            out.println("*************************");
                             break;
                     }
                 }

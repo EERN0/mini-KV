@@ -1,4 +1,4 @@
-package ck.top.backend.skipList;
+package ck.top.skipList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ public class Node<K extends Comparable<K>, V> {
     private K key;
     private V value;
     private int level;    // 节点所在的层级
-    private ArrayList<Node<K, V>> next;     // cur.next.get(i): 节点cur在第i-1层(1开始)下一个节点的引用
+    private ArrayList<Node<K, V>> next;     // cur.next.get(i): 节点cur在i层的下一个节点的引用
 
     Node(K key, V value, int level) {
         this.key = key;

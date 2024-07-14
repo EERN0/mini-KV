@@ -1,7 +1,8 @@
-package ck.top.backend.skipList;
+package ck.top.skipList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class SkipList<K extends Comparable<K>, V> {
@@ -219,23 +220,47 @@ public class SkipList<K extends Comparable<K>, V> {
         return false;
     }
 
-    /**
-     * 打印跳表的层次结构和key-value
-     */
-    public void show() {
-        // 从最上层开始，一层层遍历
+    ///**
+    // * 打印跳表的层次结构和key-value
+    // */
+    //public void show() {
+    //    // 从最上层开始，一层层遍历
+    //    for (int i = this.skipListLevel; i >= 0; i--) {
+    //        Node<K, V> cur = this.header.getNext().get(i);
+    //        System.out.print("Level " + i + ": ");
+    //        while (cur != null) {
+    //            System.out.print(cur.getKey() + ":" + cur.getValue() + "; ");
+    //            // 移动到i层的下一个节点
+    //            cur = cur.getNext().get(i);
+    //        }
+    //        System.out.println();
+    //    }
+    //}
+
+    public List<SkipListLevel<K, V>> show() {
+        List<SkipListLevel<K, V>> levels = new ArrayList<>();
+
         for (int i = this.skipListLevel; i >= 0; i--) {
             Node<K, V> cur = this.header.getNext().get(i);
-            System.out.print("Level " + i + ": ");
+            SkipListLevel<K, V> level = new SkipListLevel<>(i);
             while (cur != null) {
-                System.out.print(cur.getKey() + ":" + cur.getValue() + "; ");
-                // 移动到i层的下一个节点
+                level.addNode(cur.getKey(), cur.getValue());
                 cur = cur.getNext().get(i);
             }
-            // 打印完一层后，换行
-            System.out.println();
+            levels.add(level);
         }
+        return levels;
     }
+
+    //private static void displayLevels(List<SkipListLevel<String, String>> levels) {
+    //    for (SkipListLevel<String, String> level : levels) {
+    //        System.out.print("Level " + level.getLevel() + ": ");
+    //        for (String node : level.getNodes()) {
+    //            System.out.print(node + "; ");
+    //        }
+    //        System.out.println();
+    //    }
+    //}
 
     SkipListPersistence<K, V> persistence = new SkipListPersistence<>();
 

@@ -1,12 +1,12 @@
-package ck.top.backend.skipList;
-
-import static org.junit.Assert.*;
+package ck.top.skipList;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class SkipListTest {
+import static org.junit.Assert.*;
 
+
+public class SkipListTest {
     private SkipList<String, String> skipList;
 
     @Before

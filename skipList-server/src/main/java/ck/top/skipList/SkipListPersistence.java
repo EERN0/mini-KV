@@ -1,4 +1,4 @@
-package ck.top.backend.skipList;
+package ck.top.skipList;
 
 import java.io.*;
 
@@ -6,7 +6,7 @@ import java.io.*;
  * 数据持久化和加载磁盘文件到内存
  */
 public class SkipListPersistence<K extends Comparable<K>, V> {
-    private static final String STORE_FILE = "./store";
+    private static final String STORE_FILE = "./skipList-KV/store";
 
     /**
      * 持久化跳表数据至磁盘文件
